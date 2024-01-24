@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PokeApiService } from '../../service/poke-api.service';
 
 @Component({
   selector: 'poke-list',
   templateUrl: './poke-list.component.html',
-  styleUrl: './poke-list.component.scss'
+  styleUrl: './poke-list.component.scss',
 })
-export class PokeListComponent {
+export class PokeListComponent implements OnInit {
+  public getAllPokemons: any;
 
+  constructor(private pokeApiService: PokeApiService) {}
+
+  ngOnInit(): void {
+    this.pokeApiService.apiListAllPokemons.subscribe((res) => {
+      this.getAllPokemons = res.results;
+      console.log(this.getAllPokemons);
+    });
+  }
 }
